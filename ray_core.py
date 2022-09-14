@@ -7,6 +7,7 @@ from skimage import color, img_as_ubyte, io
 from skimage.filters import rank
 from skimage.morphology import disk
 
+
 @ray.remote
 def load_and_run_minimumPixelIntensityNeighborhoodFiltering(fname):
     try:
@@ -32,10 +33,12 @@ def load_and_run_minimumPixelIntensityNeighborhoodFiltering(fname):
     except:
         return -1
 
-files = glob.glob("/data/*.svs")
+
+files = glob.glob("./data/*.svs")
 
 futures = [
     load_and_run_minimumPixelIntensityNeighborhoodFiltering.remote(f) for f in files
 ]
 
-ray.get(futures)
+results = [ray.get(future) for future in futures]
+print(results)
