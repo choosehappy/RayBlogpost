@@ -7,6 +7,8 @@ from skimage import color, img_as_ubyte, io
 from skimage.filters import rank
 from skimage.morphology import disk
 
+from openslide import OpenSlideError
+
 
 @ray.remote
 def load_and_run_minimumPixelIntensityNeighborhoodFiltering(fname):
@@ -26,11 +28,14 @@ def load_and_run_minimumPixelIntensityNeighborhoodFiltering(fname):
         imgfilt = rank.minimum(img, selem)
         imgout = imgfilt > threshold
         io.imsave(
-            f"/opt/{fname.replace('/data/','').replace('.svs','_mask.png')}",
+            f"./opt/{fname.replace('/data/','').replace('.svs','_mask.png')}",
             img_as_ubyte(imgout),
         )
         return imgout.mean()
-    except:
+
+    except OpenSlideError as err:
+        print(err)
+    except Exception as err:
         return -1
 
 
