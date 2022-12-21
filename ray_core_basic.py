@@ -53,7 +53,7 @@ def ray_rotateImage90(fname):
 
 
 #%%time
-ray.init()
+ray.init() #or ray.init(address='ray://[IP_OF_HEAD_NODE]:10001') if going distributed
 ray.available_resources()
 
 
