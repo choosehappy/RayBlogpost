@@ -50,7 +50,7 @@ class ImageModel:
 serve.start(address="auto", http_options={"host": "0.0.0.0"})
 ImageModel.deploy()
 
-imagedata = cv2.imread("09-322-02-1.bmp")
+imagedata = cv2.cvtColor(cv2.imread("09-322-02-1.bmp"),cv2.COLOR_BGR2RGB)
 plt.imshow(imagedata)
 
 resp=requests.post(url="http://127.0.0.1:8000/image_rotate",data=pickle.dumps(imagedata))
