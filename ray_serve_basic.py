@@ -44,7 +44,7 @@ class ImageModel:
 
 
 # +
-#ray.init()
+ray.init() #-- run this only once!
 # -
 
 serve.start(address="auto", http_options={"host": "0.0.0.0"})
