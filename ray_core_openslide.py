@@ -1,3 +1,4 @@
+#example WSI for this post can be found: http://www.andrewjanowczyk.com/download-tcga-digital-pathology-images-ffpe/
 import glob
 
 import numpy as np
@@ -45,5 +46,5 @@ futures = [
     load_and_run_minimumPixelIntensityNeighborhoodFiltering.remote(f) for f in files
 ]
 
-results = [ray.get(future) for future in futures]
+results = ray.get(futures)
 print(results)
